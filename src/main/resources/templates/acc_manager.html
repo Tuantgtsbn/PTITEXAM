@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Quản lý tài khoản sinh viên</title>
+<!--   <link rel="stylesheet" type="text/css" href="../static/b21dccn541/style.css">-->
+   <link rel="stylesheet" type="text/css" href="/b21dccn541/style.css">
+    <link rel="icon" href="/b21dccn541/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="header-container">
+        <div class="left-menu">
+            <a href="/exam-admin" class="menu-logo">
+                <img src="https://code.ptit.edu.vn/2020/images/logo_ptit.png" alt="">
+                <h3>PTIT EXAM</h3>
+            </a>
+            <a href="/exam-admin" class="menu-item">Bài thi</a>
+            <a href="/acc_manager" class="menu-item">Sinh viên</a>
+            <a href="/statistic" class="menu-item">Thống kê</a>
+        </div>
+        <div class="right-menu">
+            <a href="/admin" onclick="return DangXuat();" class="menu-item">Đăng xuất</a>
+        </div>
+    </div>
+    <div class="header-container-mobile">
+        <div class="left-menu">
+            <a href="manage-exam.html" class="menu-logo">
+                <img src="https://code.ptit.edu.vn/2020/images/logo_ptit.png" alt="">
+                <h3>PTIT EXAM</h3>
+            </a>
+        </div>
+        <div class="right-menu">
+            <button  class="menu-item" id="menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="exam.html">Bài thi</a>
+        <a href="acc_manager.html">Sinh viên</a>
+        <a href="statistic.html">Thống kê</a>
+        <a href="index.html">Đăng xuất</a>
+    </div> 
+
+
+
+
+
+    <main class="table" id="studentAcc_table">
+        
+        <section class="table__header">
+            <h1>Tài khoản sinh viên</h1>
+             <div class="input-group">
+                <input type="search" placeholder="Tìm kiếm sinh viên...">
+                <img src="/b21dccn541/search.png" alt="&nbsp" >
+            </div>  
+            <button class="plus-button" id="plus-button">+</button>  
+        </section>
+
+<!-- Thân bảng -->         
+        <section class="table__body">
+            <table id="dataTable">
+               <!-- Các cột -->
+                <thead>
+                    <tr>
+                        <th> Tên đăng nhập </th>
+                        <th> Họ tên </th>
+                        <th> Ngày sinh </th>
+                        <th> Email </th>
+<!--                        <th> Mật khẩu </th>-->
+                        <th> Thao tác </th>
+                        <th> Xem kết quả </th>
+                    </tr>
+                </thead>
+                <!-- Các hàng -->
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+  </div>
+
+
+    <!-- pop up them sinh vien  -->
+    <div class="container">
+       
+       <button class="close-button" id="close-button">X</button>
+       <div class="input-form"> 
+        <h1>Thêm mới sinh viên</h1>  
+           <input id="id" type="text" placeholder="Tên đăng nhập" required/>
+           <input id="email" type="email" placeholder="Email" required/>
+           <input id="name" type="text" placeholder="Họ tên" required/>
+           <input id="birthday" type="text" placeholder="Ngày sinh dạng yyyy-mm-dd" required/>
+           <input id="password" type="password" placeholder="Mật khẩu" required/>
+           <button type="submit" class="btnThem" id="btnThem">Thêm</button>
+       </div>
+    </div>
+    
+
+<!-- pop up Sửa thông tin  sinh vien  -->
+    <div class="container-edit" id="container-edit">
+       <button class="close-button" id="close-button1">X</button>
+       <div class="input-form">
+        <h1>Sửa thông tin sinh viên</h1>    
+           <input id="id-edit" type="text" placeholder="Tên đăng nhập" readonly/>
+           <input id="email-edit" type="email" placeholder="Email" readonly/>
+           <input id="name-edit" type="text" placeholder="Họ tên" />
+           <input id="birthday-edit" type="text" placeholder="Ngày sinh dạng yyyy-mm-dd" />
+           <input id="password-edit" type="password" placeholder="Mật khẩu" />
+           <button class="btnThem" id="btnSua" onclick="Xacnhansua()">Xác nhận</button>
+       </div>
+    </div>
+
+<!--pop up xac nhan xoa-->
+    <div class="container-edit" id="container-confirm" style="max-width:350px; max-height:250px;">
+        <button class="close-button" onclick="close_popup_confirm()">X</button>
+        <div class="input-form">
+            <h1>Xác nhận xóa người dùng</h1>
+            <div style="display: flex; flex-direction: row;!justify-content: space-around;">
+                <button class="btnThem" id="btnHuy" onclick="close_popup_confirm()" style="margin-right:10px;">Hủy</button>
+                <button class="btnThem" id="btnXoa" onclick="confirm()">Xác nhận</button>
+            </div>
+
+        </div>
+    </div>
+        <!-- Bang diem tung sinh vien-->
+        
+        <div class="score-container" id="score-container1">
+          <main class="table" id="score_table">
+              <section class="table__header">
+                  <h1>Kết quả sinh viên</h1>
+                  <div class="export__file">
+                      <label id="toPDF" for="export-file" class="export__file-btn" title="Xuất ra PDF"><p></p></label>
+                      <input type="checkbox" id="export-file">                  
+                  </div>
+                  <button class="close-button" id="close-buttonkq1">X</button>
+              </section>
+              <section class="table__body">
+                  <table id="scoreTable">
+                      <thead>
+                          <tr>
+                              <th> Tên bài thi </th>
+                              <th> Điểm </th>
+                              <th> Thời gian nộp bài</th>
+                              <th> </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                  </table>
+              </section>
+          </main>
+      </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/b21dccn541/script.js"></script>
+    <script src="https://kit.fontawesome.com/983c1d6e7e.js" crossorigin="anonymous"></script>
+    <script>document.getElementById("menu-btn").addEventListener('click', ()=>{
+        if(document.getElementById('mobile-menu').style.display=='none'){
+            document.getElementById('mobile-menu').style.display='block';
+        }
+        else{
+            document.getElementById('mobile-menu').style.display='none';
+        }
+    }) 
+    </script>
+</body>
+
+</html>
